@@ -18,6 +18,12 @@
 # Extended:
 # Daniel 'Sawyer' Garcia <dagaba13@gmail.com>
 #
+# Port to Ubuntu:
+# https://github.com/moonchitta
+#
+# Port from Ubuntu to WSL2 Ubuntu:
+# Marcel 'Paranoik' Pewny
+#
 # anonsurf is free software: you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation, either version 3 of the
@@ -100,12 +106,12 @@ function start {
 
 	echo -e "\n$GREEN[$BLUE i$GREEN ]$BLUE Starting anonymous mode:$RESETCOLOR\n"
 
-	echo -e "\n$GREEN*$BLUE Stop tor if its running\n"	
-	systemctl stop tor
+	echo -e "\n$GREEN*$BLUE Stop tor if its running\n"
+	service tor stop
 
 	if [ ! -e $TOR_PID ]; then
 		echo -e " $RED*$BLUE Tor is not running! $GREEN starting it $BLUE for you" >&2
-		systemctl start tor
+		service tor start
 		sleep 20
 	fi
 
@@ -236,12 +242,28 @@ function status {
 
 case "$1" in
 	start)
-		zenity --question --text="Do you want anonsurf to kill dangerous applications and clean some application caches?" --width 400 && init
-		start
+	read -p "To start anonsurf needs to kill dangerous applications and clean some application caches. Want to continue? [Y/n]: " response
+		response=${response:-Y}
+		if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
+		then
+				start
+		else
+			echo "AnonSurf can't start without killing dangerous applications and cleaning some application caches. Goodbye!"
+			exit 0
+		fi
+
 	;;
 	stop)
-		zenity --question --text="Do you want anonsurf to kill dangerous applications and clean some application caches?" --width 400 && init
-		stop
+
+	read -p "To stop anonsurf needs to kill dangerous applications and clean some application caches. Want to continue? [Y/n]: " response
+		response=${response:-Y}
+		if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
+		then
+				stop
+		else
+			echo "AnonSurf can't stop without killing dangerous applications and cleaning some application caches. Goodbye!"
+			exit 0
+		fi
 	;;
 	changeid|change-id|change)
 		change
@@ -265,6 +287,7 @@ Parrot AnonSurf Module (v 2.11)
 		     Francesco \"Mibofra\" Bonanno <mibofra@parrotsec.org>
 		and a huge amount of Caffeine + some GNU/GPL v3 stuff
 	Extended by Daniel \"Sawyer\" Garcia <dagaba13@gmail.com>
+	WSL2 (Ubuntu) Port by Marcel \"Paranoik\" Pewny <mpewny@protonmail.com>
 
 	Usage:
 	$RED┌──[$GREEN$USER$YELLOW@$BLUE`hostname`$RED]─[$GREEN$PWD$RED]
