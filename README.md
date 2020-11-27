@@ -1,7 +1,9 @@
-A port of parrot's ```anonsurf``` for ubuntu
+A port of parrot's ```anonsurf``` for WSL2 Ubuntu
 
-Tested on ```Ubuntu 18.04.4 LTS```
+Using the Ubuntu port by [moonchitta](https://github.com/moonchitta/)
 
-make sure you have ```tor``` installed
+**Runs only with WSL2**
+
+Make sure you have ```tor``` installed
 
 ```sudo apt-get install tor```
