@@ -173,7 +173,7 @@ function start {
 	notify "Global Anonymous Proxy Activated"
 	sleep 1
 	notify "Dance like no one's watching. Encrypt like everyone is :)"
-	sleep 10
+
 }
 
 
@@ -210,8 +210,6 @@ function stop {
 	/sbin/sysctl -w net.ipv6.conf.default.disable_ipv6=0
 
 	/usr/sbin/service tor stop
-	sleep 2
-	killall tor
 	sleep 6
 	echo -e -n " $GREEN*$BLUE Restoring torrc to original\n"
 	if [ -e /etc/tor/torrc.orig ]; then
@@ -222,7 +220,7 @@ function stop {
 
 	echo -e " $GREEN*$BLUE Anonymous mode stopped\n"
 	notify "Global Anonymous Proxy Closed - Stop dancing :("
-	sleep 4
+
 }
 
 
@@ -249,7 +247,7 @@ case "$1" in
 				start
 		else
 			echo "AnonSurf can't start without killing dangerous applications and cleaning some application caches. Goodbye!"
-			
+
 		fi
 
 	;;
