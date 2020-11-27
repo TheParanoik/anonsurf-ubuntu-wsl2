@@ -249,7 +249,7 @@ case "$1" in
 				start
 		else
 			echo "AnonSurf can't start without killing dangerous applications and cleaning some application caches. Goodbye!"
-			exit 0
+			
 		fi
 
 	;;
@@ -262,7 +262,7 @@ case "$1" in
 				stop
 		else
 			echo "AnonSurf can't stop without killing dangerous applications and cleaning some application caches."
-			
+
 		fi
 	;;
 	changeid|change-id|change)
