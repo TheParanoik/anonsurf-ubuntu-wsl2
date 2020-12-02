@@ -234,7 +234,7 @@ function change {
 
 
 function status {
-	/usr/sbin/service tor@default status
+	/usr/sbin/service tor status
 	cat /tmp/anonsurf-tor.log || cat /var/log/tor/log
 }
 
